@@ -30,8 +30,8 @@ for i in range(1000):
 print()
 print("Cubic")
 print(f"np.root: {round(np.array(time1).mean()*1000000, 4)} us, best: {round(np.array(time1).min()*1000000, 4)} us")
-print(f"nonumba: {round(np.array(time2).mean()*1000000, 4)} us, best: {round(np.array(time2).min()*1000000, 4)} us")
-print(f"cardano: {round(np.array(time3).mean()*1000000, 4)} us, best: {round(np.array(time3).min()*1000000, 4)} us")
+print(f"python : {round(np.array(time2).mean()*1000000, 4)} us, best: {round(np.array(time2).min()*1000000, 4)} us")
+print(f"numba  : {round(np.array(time3).mean()*1000000, 4)} us, best: {round(np.array(time3).min()*1000000, 4)} us")
 
 
 time4 = []
@@ -56,5 +56,5 @@ for i in range(100000):
 print()
 print("Quartic")
 print(f"np.root: {round(np.array(time4).mean()*1000000, 4)} us, best: {round(np.array(time4).min()*1000000, 4)} us")
-print(f"nonumba: {round(np.array(time5).mean()*1000000, 4)} us, best: {round(np.array(time5).min()*1000000, 4)} us")
-print(f"ferrari: {round(np.array(time6).mean()*1000000, 4)} us, best: {round(np.array(time6).min()*1000000, 4)} us")
+print(f"python : {round(np.array(time5).mean()*1000000, 4)} us, best: {round(np.array(time5).min()*1000000, 4)} us")
+print(f"numba  : {round(np.array(time6).mean()*1000000, 4)} us, best: {round(np.array(time6).min()*1000000, 4)} us")

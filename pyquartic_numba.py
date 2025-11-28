@@ -2,9 +2,9 @@
 Modified Ferrari's quartic solver and modified Cardano's cubic solver for Python (4th and 3rd order polynomials)
 Using modified algorithms from: https://quarticequations.com
 Functions can optionally be 'numbarized' by just installing numba
-Python implementation by: mzivic7
-Source code: https://github.com/mzivic7/pyquartic
-Issues: https://github.com/mzivic7/pyquartic/issues
+Python implementation by: sparklost
+Source code: https://github.com/sparklost/pyquartic
+Issues: https://github.com/sparklost/pyquartic/issues
 Licence: GNU General Public License v3.0
 """
 

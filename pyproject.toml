@@ -6,11 +6,10 @@ build-backend = "setuptools.build_meta"
 name = "pyquartic"
 version = "0.1.0"
 description = "Fast and highly accurate cubic and quartic equation solvers"
-authors = [{name = "mzivic7"}]
+authors = [{name = "sparklost"}]
 license = "GPL-3.0-or-later"
-license-files = ["LICENSE"]
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.9"
 dependencies = ["numpy"]
 keywords = [
     "polynomial",
@@ -34,10 +33,14 @@ classifiers = [
 ]
 
 [project.urls]
-homepage = "https://github.com/mzivic7/pyquartic"
-"Bug Reports" = "https://github.com/mzivic7/pyquartic/issues"
-"Source" = "https://github.com/mzivic7/pyquartic"
+homepage = "https://github.com/sparklost/pyquartic"
+"Bug Reports" = "https://github.com/sparklost/pyquartic/issues"
+"Source" = "https://github.com/sparklost/pyquartic"
 
 [tool.setuptools]
 packages = ["pyquartic"]
 include-package-data = true
+
+[tool.cibuildwheel]
+build = "*"
+before-build = "pip install numba setuptools wheel"

@@ -1,0 +1,86 @@
+name: Build and Release
+run-name: ${{ github.workflow }} for ${{ github.ref_name }}
+on:
+  push:
+    tags:
+      - '[0-9]*.[0-9]*.[0-9]*'
+
+jobs:
+  build:
+    name: Build wheels for ${{ matrix.os }} / ${{ matrix.arch }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          - os: macos
+            runner: macos-15
+            arch: arm64
+          - os: macos
+            runner: macos-15
+            arch: x86_64
+          - os: linux
+            runner: ubuntu-latest
+            arch: x86_64
+          - os: linux
+            runner: ubuntu-24.04-arm
+            arch: aarch64
+          - os: windows
+            runner: windows-latest
+            arch: AMD64
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install cibuildwheel
+        run: python -m pip install cibuildwheel
+
+      - name: Build wheels
+        env:
+          CIBW_ARCHS: ${{ matrix.arch }}
+          CIBW_SKIP: "*musllinux*"
+        run: python -m cibuildwheel --output-dir dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wheels-${{ matrix.os }}-${{ matrix.arch }}
+          path: dist/*.whl
+
+
+  draft-release:
+    name: Draft GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      attestations: write
+      contents: write
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+
+      - name: Flatten wheels
+        run: |
+          mkdir wheels
+          find dist -name "*.whl" -exec cp {} wheels/ \;
+
+      - name: Generate release attestation
+        uses: actions/attest-build-provenance@v2.4.0
+        with:
+          subject-path: "wheels/*"
+
+      - name: Draft a release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: '${{ github.ref_name }} [DRAFTED BY CI]'
+          tag_name: '${{ github.ref_name }}'
+          target_commitish: ${{ github.sha }}
+          draft: true
+          files: wheels/*.whl
+          generate_release_notes: true
