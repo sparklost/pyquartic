@@ -112,6 +112,10 @@ jobs:
     name: Upload wheels to PyPI
     needs: [build, build-sdist]
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
     steps:
       - uses: actions/download-artifact@v4
         with:
