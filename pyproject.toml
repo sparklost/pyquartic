@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pyquartic"
-version = "0.1.0"
+version = "0.1.1"
 description = "Fast and highly accurate cubic and quartic equation solvers"
 authors = [{name = "sparklost"}]
 license = "GPL-3.0-or-later"
